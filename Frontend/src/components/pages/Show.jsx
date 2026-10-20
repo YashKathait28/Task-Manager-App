@@ -1,0 +1,98 @@
+// import React from 'react'
+import Switch from "@mui/material/Switch";
+import { useEffect, useState } from "react";
+import { Link } from "react-router-dom";
+
+const Show = () => {
+  const [tasks, setTasks] = useState([]);
+
+  const getData = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/tasks/getTask", {
+        method: "GET",
+      });
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        console.log(result.error);
+        return;
+      }
+
+      if (response.ok) {
+        console.log(result);
+        setTasks(result.tasks);
+      }
+    } catch (error) {
+      console.log("Error in getting the tasks!", error);
+    }
+  };
+
+  const handleDelete = async (id) => {
+    try {
+      const response = await fetch(
+        `http://localhost:5000/api/tasks/deleteTask/${id}`,
+        {
+          method: "DELETE",
+        },
+      );
+
+      const result = await response.json();
+
+      if (!response.ok) {
+        console.log(result.error);
+        return;
+      }
+
+      if (response.ok) {
+        // console.log(result);
+        getData();
+      }
+    } catch (error) {
+      console.log("Task not deleted!", error);
+    }
+  };
+
+  useEffect(() => {
+    getData();
+  }, []);
+
+  return (
+    <div className="grid grid-cols-1 gap-8 max-w-6xl mx-auto p-7 m-6 sm:grid-cols-2 lg:grid-cols-3 ">
+      {tasks.map((task, index) => (
+        <div
+          key={index}
+          className="text-center border rounded-lg bg-amber-50 shadow-sm p-2 flex flex-col sm:w-60 lg:w-80 md-w-70"
+        >
+          <div className="relative mb-2">
+            <h2 className="text-center text-lg mt-3 font-semibold text-gray-800 break-all pl-14 pr-17">
+              {task.title}
+            </h2>
+
+            <div className="absolute right-2 top-3">
+              <Switch size="small" defaultChecked={false} />
+            </div>
+          </div>
+          <p className="text-sm mb-6 text-gray-600 wrap-break-word">
+            {task.description}
+          </p>
+          <div className="flex justify-center mt-auto mb-3 gap-4 pt-3">
+            <button className="cursor-pointer rounded bg-blue-500 px-4 py-1 text-white hover:bg-blue-700">
+              <Link to={`/${task._id}`}>Edit</Link>
+            </button>
+            <button
+              onClick={() => {
+                handleDelete(task._id);
+              }}
+              className="cursor-pointer rounded bg-red-500 px-4 py-1 text-white hover:bg-red-700"
+            >
+              Delete
+            </button>
+          </div>
+        </div>
+      ))}
+    </div>
+  );
+};
+
+export default Show;
