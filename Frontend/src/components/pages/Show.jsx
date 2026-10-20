@@ -8,9 +8,12 @@ const Show = () => {
 
   const getData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/tasks/getTask", {
-        method: "GET",
-      });
+      const response = await fetch(
+        "https://task-manager-app-3hrv.onrender.com/api/tasks/getTask",
+        {
+          method: "GET",
+        },
+      );
 
       const result = await response.json();
 
@@ -31,7 +34,7 @@ const Show = () => {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/tasks/deleteTask/${id}`,
+        `https://task-manager-app-3hrv.onrender.com/api/tasks/deleteTask/${id}`,
         {
           method: "DELETE",
         },
