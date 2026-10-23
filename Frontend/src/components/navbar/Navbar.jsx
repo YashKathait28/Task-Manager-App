@@ -7,8 +7,8 @@ const Navbar = () => {
   return (
     <nav className="top-0 z-50 flex items-center justify-between border-b border-gray-200 bg-blue-950 px-6 py-4 shadow-sm">
       {/* Logo */}
-      <div className=" flex gap-1 text-2xl font-semibold font-sans tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
-        <img src="/image.png" className="h-9 w-10 object-contain" />
+      <div className=" flex gap-2 text-2xl font-semibold font-sans tracking-tight bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent">
+        <img src="/image.png" className="h-10 w-10 object-contain" />
         <h1>My Task Manager</h1>
       </div>
 

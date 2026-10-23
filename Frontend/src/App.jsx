@@ -1,9 +1,9 @@
 // import React from 'react'
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Navbar from "./components/navbar/Navbar";
-import Create from "./components/pages/Create";
-import Show from "./components/pages/Show";
-import Update from "./components/pages/Update";
+import Create from "./pages/Create";
+import Show from "./pages/Show";
+import Update from "./pages/Update";
 import "./App.css";
 
 const App = () => {
