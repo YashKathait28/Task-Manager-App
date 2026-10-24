@@ -9,6 +9,32 @@ const Show = () => {
   const [search, setSearch] = useState("");
   const [date, setDate] = useState("");
 
+  const handleCompleted = async (id, checked) => {
+    try {
+      const response = await fetch(
+        `https://task-manager-app-3hrv.onrender.com/api/tasks/editTask/${id}`,
+        {
+          method: "PATCH",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ completed: checked }),
+        },
+      );
+
+      const result = await response.json();
+      console.log("Updated task:", result);
+
+      if (!response.ok) {
+        throw new Error("Failed to update task");
+      }
+
+      await getData();
+    } catch (error) {
+      console.log(error);
+    }
+  };
+
   const filteredTask = () => {
     const filtered = tasks.filter((task) => {
       const matchTitle =
@@ -85,7 +111,7 @@ const Show = () => {
         setDate={setDate}
       />
       <div className="grid grid-cols-1 gap-8 max-w-6xl mx-auto p-7 m-2 sm:grid-cols-2 lg:grid-cols-3 ">
-        {filteredTask().map((task, index) => (
+        {filteredTask().map((task) => (
           <div
             key={task._id}
             className="text-center border rounded-lg bg-amber-50 shadow-sm p-2 flex flex-col sm:w-60 lg:w-80 md-w-70"
@@ -96,7 +122,13 @@ const Show = () => {
               </h2>
 
               <div className="absolute right-2 top-3">
-                <Switch size="small" defaultChecked={false} />
+                <Switch
+                  size="small"
+                  checked={task.completed}
+                  onChange={(e) => {
+                    handleCompleted(task._id, e.target.checked);
+                  }}
+                />
               </div>
             </div>
             <p className="text-sm mb-6 text-gray-600 wrap-break-word">

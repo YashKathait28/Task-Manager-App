@@ -96,10 +96,14 @@ const deleteTask = async (req, res) => {
 // Update a specific task patch request
 const updateTask = async (req, res) => {
   const {id} = req.params;
-  const {title, description} = req.body;
+  const {title, description, completed} = req.body;
 
   try {
-    const updatedTask = await task.findByIdAndUpdate(id, {title, description},{new:true});
+    const updatedTask = await task.findByIdAndUpdate(
+      id,
+      {$set: req.body},
+      {new: true, runValidators: true}
+    );
 
     if(!updatedTask){
         return res.status(404).json({message: "Task not found!"});
