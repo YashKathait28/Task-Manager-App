@@ -77,12 +77,16 @@ const PendingTask = () => {
   }, [location]);
   return (
     <>
-      <Search_and_Date
-        search={search}
-        date={date}
-        setSearch={setSearch}
-        setDate={setDate}
-      />
+      <div className="flex items-center justify-between mb-2">
+        <h2 className="text-2xl font-semibold px-25 mt-6">Pending Tasks</h2>
+
+        <Search_and_Date
+          search={search}
+          date={date}
+          setSearch={setSearch}
+          setDate={setDate}
+        />
+      </div>
       <div className="grid grid-cols-1 gap-8 max-w-6xl mx-auto p-7 m-2 sm:grid-cols-2 lg:grid-cols-3 ">
         {filteredTask().map((task) => (
           <div
