@@ -46,6 +46,7 @@ const Navbar = () => {
               <Link
                 to="/completed"
                 className="block px-2 py-1 text-sm text-gray-700 rounded-t-lg hover:bg-gray-100"
+                onClick={() => setShowStatus(false)}
               >
                 Completed Task
               </Link>
@@ -53,6 +54,7 @@ const Navbar = () => {
               <Link
                 to="/pending"
                 className="block px-2 py-1 text-sm text-gray-700 rounded-b-lg hover:bg-gray-100"
+                onClick={() => setShowStatus(false)}
               >
                 Pending Task
               </Link>
