@@ -10,7 +10,7 @@ const PendingTask = () => {
   const location = useLocation();
 
   const filteredTask = () => {
-    const filtered = tasks.filter((task) => {
+    const filtered = tasks.filter((task) => {    
       const matchTitle =
         !search || task.title.toLowerCase().includes(search.toLowerCase());
 
