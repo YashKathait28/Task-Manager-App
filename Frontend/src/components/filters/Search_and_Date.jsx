@@ -1,6 +1,11 @@
 import { Search } from "lucide-react";
 
 const Search_and_Date = ({search, date, setSearch, setDate}) => {
+
+  const handleClear = () => {
+    setSearch("");
+    setDate("");
+  }
   
 
   return (
@@ -25,6 +30,8 @@ const Search_and_Date = ({search, date, setSearch, setDate}) => {
         value={date}
         onChange={(e) => setDate(e.currentTarget.value)}
       />
+
+      <button onClick={handleClear} className="border px-2 text-lg bg-indigo-400 hover:bg-indigo-500 rounded-lg cursor-pointer">Clear Filters</button>
     </div>
   );
 };
