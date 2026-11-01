@@ -25,9 +25,10 @@ const CompletedTask = () => {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        `https://task-manager-app-3hrv.onrender.com/api/tasks/deleteTask/${id}`,
+        `http://localhost:5000/api/tasks/deleteTask/${id}`,
         {
           method: "DELETE",
+          credentials: "include",
         },
       );
 
@@ -50,9 +51,10 @@ const CompletedTask = () => {
   const getData = async () => {
     try {
       const response = await fetch(
-        "https://task-manager-app-3hrv.onrender.com/api/tasks/getTask",
+        "http://localhost:5000/api/tasks/getTask",
         {
           method: "GET",
+          credentials: "include",
         },
       );
 
@@ -88,7 +90,7 @@ const CompletedTask = () => {
         />
       </div>
       <div className="grid grid-cols-1 gap-8 max-w-6xl mx-auto p-7 m-2 sm:grid-cols-2 lg:grid-cols-3 ">
-        {filteredTask().map((task) => (
+        {filteredTask().length>0? filteredTask().map((task) => (
           <div
             key={task._id}
             className="text-center border rounded-lg bg-amber-50 shadow-sm p-2 flex flex-col sm:w-60 lg:w-80 md-w-70"
@@ -115,7 +117,11 @@ const CompletedTask = () => {
               </button>
             </div>
           </div>
-        ))}
+        )) : (
+          <div className="flex items-center justify-center font-medium text-lg w-full min-h-[20vh] ">
+            <p className="text-center mr-25 mb-15">No Completed Tasks Found</p>
+          </div>
+        ) }
       </div>
     </>
   );

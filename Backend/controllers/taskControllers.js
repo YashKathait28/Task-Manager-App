@@ -1,8 +1,8 @@
-const express = require("express");
 const task = require("../models/taskModel");
 
 // Create task post request
 const createTask = async (req, res) => {
+  const id = req.userId;
   const { title, description } = req.body;
   try {
     if (!title || title.trim() === "") {
@@ -12,6 +12,7 @@ const createTask = async (req, res) => {
     }
 
     const newTask = await task.create({
+      userId: id,
       title: title,
       description: description,
     });
@@ -31,10 +32,11 @@ const createTask = async (req, res) => {
 // Show tasks get request
 const showTask = async (req, res) => {
 //   const {title, description} = req.body;
+  const id = req.userId;
 
   try {
-    const showTasks = await task.find({});
-
+    const showTasks = await task.find({userId: id});
+  
     return res.status(200).json({
       message: "Successfully showing all the tasks!",
       tasks: showTasks,
@@ -49,11 +51,12 @@ const showTask = async (req, res) => {
 
 // Get Specific task get request
 const getTask = async (req, res) => {
-  const {id} = req.params;
+  const {id} = req.params; 
+  const ID = req.userId;
   try{
-    const getTasks = await task.findById(id);
+    const getTasks = await task.findOne({_id: id,userId: ID});
     if(!getTasks){
-      return res.status(400).json({message: "Task not found"})
+      return res.status(404).json({message: "Task not found"})
     }
     return res.status(200).json({
       message: "Successfully showing one task!",
@@ -71,12 +74,13 @@ const getTask = async (req, res) => {
 // Delete a specific task delete request
 const deleteTask = async (req, res) => {
   const {id} = req.params;
+  const ID = req.userId;
 
   try {
-    const deletedTask = await task.findByIdAndDelete(id);
+    const deletedTask = await task.findByIdAndDelete({_id: id, userId: ID});
 
     if (!deletedTask){
-        return res.status(400).json({
+        return res.status(404).json({
             message: "Task not found!"
         });
     }
@@ -96,12 +100,13 @@ const deleteTask = async (req, res) => {
 // Update a specific task patch request
 const updateTask = async (req, res) => {
   const {id} = req.params;
+  const ID = req.userId;
   const {title, description, completed} = req.body;
 
   try {
-    const updatedTask = await task.findByIdAndUpdate(
-      id,
-      {$set: req.body},
+    const updatedTask = await task.findOneAndUpdate(
+      {_id: id, userId: ID},
+      {$set: {title, description, completed}},
       {new: true, runValidators: true}
     );
 

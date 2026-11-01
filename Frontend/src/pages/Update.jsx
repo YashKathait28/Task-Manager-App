@@ -11,7 +11,10 @@ const Update = () => {
   const updateSingleTask = async () => {
     try {
       const response = await fetch(
-        `https://task-manager-app-3hrv.onrender.com/api/tasks/getTask/${id}`,
+        `http://localhost:5000/api/tasks/getTask/${id}`,
+        {
+          credentials: "include",
+        },
       );
 
       const result = await response.json();
@@ -36,13 +39,14 @@ const Update = () => {
     const data = { title, description };
     try {
       const response = await fetch(
-        `https://task-manager-app-3hrv.onrender.com/api/tasks/editTask/${id}`,
+        `http://localhost:5000/api/tasks/editTask/${id}`,
         {
           method: "PATCH",
           body: JSON.stringify(data),
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
         },
       );
 
@@ -55,7 +59,7 @@ const Update = () => {
 
       if (response.ok) {
         console.log(result);
-        navigate("/");
+        navigate("/show");
       }
     } catch (error) {
       console.log("Error occur while creating the task!", error);

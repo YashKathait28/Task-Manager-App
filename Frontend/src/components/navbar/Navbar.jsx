@@ -1,9 +1,34 @@
 // import React from 'react'
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [showStatus, setShowStatus] = useState(false);
+  const navigate = useNavigate();
+
+  const handleLogout = async () => {
+    try {
+      const response = await fetch("http://localhost:5000/api/auth/logout",{
+        method: "POST",
+        credentials: "include",
+      });
+
+      const result = await response.json();
+
+      if(!response.ok){
+        console.log(result.error);
+        return;
+      }
+
+      if(response.ok){
+        console.log(result);
+        navigate("/");
+      }
+    } catch (error) {
+      console.log("Logout failed", error);
+      return;
+    }
+  }
   return (
     <nav className="top-0 z-50 flex items-center justify-between border-b border-gray-200 bg-blue-950 px-6 py-4 shadow-sm">
       {/* Logo */}
@@ -13,9 +38,9 @@ const Navbar = () => {
       </div>
 
       {/* Navigation*/}
-      <div className="flex items-center justify-center gap-5">
+      <div className="flex items-center gap-6 ml-auto">
         <Link
-          to="/"
+          to="/show"
           className="font-medium text-amber-50 text-sm hover:text-blue-800 transition"
         >
           Dashboard
@@ -62,6 +87,10 @@ const Navbar = () => {
           )}
         </div>
       </div>
+        
+
+      {/* Logout */}
+      <button className="text-white border px-2 py-1 font-medium cursor-pointer rounded-xl bg-purple-700 hover:bg-purple-800 ml-auto mr-5" onClick={handleLogout}>Logout</button>
 
       {/* Profile */}
       <div className="text-xl rounded-full border bg-emerald-500 border-4 size-10 flex items-center justify-center ">

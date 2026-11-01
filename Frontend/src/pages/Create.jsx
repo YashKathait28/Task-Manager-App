@@ -13,13 +13,14 @@ const Create = () => {
     const data = { title, description };
     try {
       const response = await fetch(
-        "https://task-manager-app-3hrv.onrender.com/api/tasks/createTask",
+        "http://localhost:5000/api/tasks/createTask",
         {
           method: "POST",
           body: JSON.stringify(data),
           headers: {
             "Content-Type": "application/json",
           },
+          credentials: "include",
         },
       );
 
@@ -34,7 +35,7 @@ const Create = () => {
         console.log(result);
         setTitle("");
         setDescription("");
-        navigate("/");
+        navigate("/show");
       }
     } catch (error) {
       console.log("Error occur while creating the task!", error);

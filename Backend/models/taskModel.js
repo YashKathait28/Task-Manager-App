@@ -1,6 +1,12 @@
 const mongoose = require("mongoose");
+const userModel = require("./authModel");
 
 const taskSchema = new mongoose.Schema({
+    userId: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "userModel",
+        required: true
+    },
     title: {
         type: String,
         required: true,
