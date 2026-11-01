@@ -11,7 +11,7 @@ const Update = () => {
   const updateSingleTask = async () => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/tasks/getTask/${id}`,
+        `https://task-manager-app-3hrv.onrender.com/api/tasks/getTask/${id}`,
         {
           credentials: "include",
         },
