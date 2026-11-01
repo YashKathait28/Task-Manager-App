@@ -10,7 +10,7 @@ const PendingTask = () => {
   const location = useLocation();
 
   const filteredTask = () => {
-    const filtered = tasks.filter((task) => {    
+    const filtered = tasks.filter((task) => {
       const matchTitle =
         !search || task.title.toLowerCase().includes(search.toLowerCase());
 
@@ -25,9 +25,10 @@ const PendingTask = () => {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        `https://task-manager-app-3hrv.onrender.com/api/tasks/deleteTask/${id}`,
+        `http://localhost:5000/api/tasks/deleteTask/${id}`,
         {
           method: "DELETE",
+          credentials: "include",
         },
       );
 
@@ -49,12 +50,10 @@ const PendingTask = () => {
 
   const getData = async () => {
     try {
-      const response = await fetch(
-        "https://task-manager-app-3hrv.onrender.com/api/tasks/getTask",
-        {
-          method: "GET",
-        },
-      );
+      const response = await fetch("http://localhost:5000/api/tasks/getTask", {
+        method: "GET",
+        credentials: "include",
+      });
 
       const result = await response.json();
 
@@ -88,34 +87,40 @@ const PendingTask = () => {
         />
       </div>
       <div className="grid grid-cols-1 gap-8 max-w-6xl mx-auto p-7 m-2 sm:grid-cols-2 lg:grid-cols-3 ">
-        {filteredTask().map((task) => (
-          <div
-            key={task._id}
-            className="text-center border rounded-lg bg-amber-50 shadow-sm p-2 flex flex-col sm:w-60 lg:w-80 md-w-70"
-          >
-            <div className="relative mb-2">
-              <h2 className="text-center text-lg mt-3 font-semibold text-gray-800 break-all pl-14 pr-17">
-                {task.title}
-              </h2>
+        {filteredTask().length > 0 ? (
+          filteredTask().map((task) => (
+            <div
+              key={task._id}
+              className="text-center border rounded-lg bg-amber-50 shadow-sm p-2 flex flex-col sm:w-60 lg:w-80 md-w-70"
+            >
+              <div className="relative mb-2">
+                <h2 className="text-center text-lg mt-3 font-semibold text-gray-800 break-all pl-14 pr-17">
+                  {task.title}
+                </h2>
+              </div>
+              <p className="text-sm mb-6 text-gray-600 wrap-break-word">
+                {task.description}
+              </p>
+              <div className="flex justify-center mt-auto mb-3 gap-4 pt-3">
+                <button className="cursor-pointer rounded bg-blue-500 px-4 py-1 text-white hover:bg-blue-700">
+                  <Link to={`/${task._id}`}>Edit</Link>
+                </button>
+                <button
+                  onClick={() => {
+                    handleDelete(task._id);
+                  }}
+                  className="cursor-pointer rounded bg-red-500 px-4 py-1 text-white hover:bg-red-700"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
-            <p className="text-sm mb-6 text-gray-600 wrap-break-word">
-              {task.description}
-            </p>
-            <div className="flex justify-center mt-auto mb-3 gap-4 pt-3">
-              <button className="cursor-pointer rounded bg-blue-500 px-4 py-1 text-white hover:bg-blue-700">
-                <Link to={`/${task._id}`}>Edit</Link>
-              </button>
-              <button
-                onClick={() => {
-                  handleDelete(task._id);
-                }}
-                className="cursor-pointer rounded bg-red-500 px-4 py-1 text-white hover:bg-red-700"
-              >
-                Delete
-              </button>
-            </div>
+          ))
+        ) : (
+          <div className="flex items-center justify-center font-medium text-lg w-full min-h-[20vh] ">
+            <p className="text-center mr-30 mb-15">No Pending Tasks Found</p>
           </div>
-        ))}
+        )}
       </div>
     </>
   );
