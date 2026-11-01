@@ -25,7 +25,7 @@ const PendingTask = () => {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/tasks/deleteTask/${id}`,
+        `https://task-manager-app-3hrv.onrender.com/api/tasks/deleteTask/${id}`,
         {
           method: "DELETE",
           credentials: "include",
@@ -50,7 +50,7 @@ const PendingTask = () => {
 
   const getData = async () => {
     try {
-      const response = await fetch("http://localhost:5000/api/tasks/getTask", {
+      const response = await fetch("https://task-manager-app-3hrv.onrender.com/api/tasks/getTask", {
         method: "GET",
         credentials: "include",
       });
