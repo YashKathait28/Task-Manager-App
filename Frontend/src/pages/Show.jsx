@@ -12,7 +12,7 @@ const Show = () => {
   const handleCompleted = async (id, checked) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/tasks/editTask/${id}`,
+        `https://task-manager-app-3hrv.onrender.com/api/tasks/editTask/${id}`,
         {
           method: "PATCH",
           headers: {
@@ -52,7 +52,7 @@ const Show = () => {
   const getData = async () => {
     try {
       const response = await fetch(
-        "http://localhost:5000/api/tasks/getTask",
+        "https://task-manager-app-3hrv.onrender.com/api/tasks/getTask",
         {
           method: "GET",
           credentials: "include",
@@ -79,7 +79,7 @@ const Show = () => {
   const handleDelete = async (id) => {
     try {
       const response = await fetch(
-        `http://localhost:5000/api/tasks/deleteTask/${id}`,
+        `https://task-manager-app-3hrv.onrender.com/api/tasks/deleteTask/${id}`,
         {
           method: "DELETE",
           credentials: "include",
