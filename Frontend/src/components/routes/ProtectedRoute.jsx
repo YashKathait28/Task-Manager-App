@@ -12,8 +12,8 @@ export default function ProtectedRoute(){
             })
 
             setIsLoggedIn(response.ok);
-        } catch (error) {
-            return setIsLoggedIn(false, error);
+        } catch () {
+            setIsLoggedIn(false);
         }
     }
     checkLogin();

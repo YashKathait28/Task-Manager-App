@@ -16,6 +16,7 @@ import PendingTask from "./components/navbar/TaskStatus/PendingTask";
 import Register from "./auth/Register";
 import Login from "./auth/Login";
 import ProtectedRoute from "./components/routes/ProtectedRoute";
+import PublicRoute from "./components/routes/PublicRoute";
 
 function TaskLayout() {
   return (
@@ -31,9 +32,10 @@ const App = () => {
     <div>
       <BrowserRouter>
         <Routes>
+          <Route element={<PublicRoute />}>
           <Route path="/" element={<Login />}></Route>
           <Route path="/register" element={<Register />}></Route>
-
+          </Route>
           <Route element={<ProtectedRoute />}>
             <Route element={<TaskLayout />}>
               <Route path="/show" element={<Show />}></Route>
