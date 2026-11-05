@@ -138,6 +138,7 @@ const userLogin = async (req, res) => {
 // Logout User
 const userLogout = async (req, res) => {
   try{
+    const isProduction = process.env.NODE_ENV === "production";
     res.clearCookie("token", {
     httpOnly: true,
     secure: isProduction,
