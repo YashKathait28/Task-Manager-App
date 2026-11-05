@@ -1,13 +1,13 @@
 import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 import Search_and_Date from "../../filters/Search_and_Date";
-import { useLocation } from "react-router-dom";
+// import { useLocation } from "react-router-dom";
 
 const PendingTask = () => {
   const [tasks, setTasks] = useState([]);
   const [search, setSearch] = useState("");
   const [date, setDate] = useState("");
-  const location = useLocation();
+  // const location = useLocation();
 
   const filteredTask = () => {
     const filtered = tasks.filter((task) => {
@@ -73,7 +73,7 @@ const PendingTask = () => {
 
   useEffect(() => {
     getData();
-  }, [location]);
+  }, []);
   return (
     <>
       <div className="flex items-center justify-between mb-2">
@@ -103,7 +103,7 @@ const PendingTask = () => {
               </p>
               <div className="flex justify-center mt-auto mb-3 gap-4 pt-3">
                 <button className="cursor-pointer rounded bg-blue-500 px-4 py-1 text-white hover:bg-blue-700">
-                  <Link to={`/${task._id}`}>Edit</Link>
+                  <Link to={`/update/${task._id}`}>Edit</Link>
                 </button>
                 <button
                   onClick={() => {

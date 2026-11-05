@@ -135,7 +135,6 @@ const userLogin = async (req, res) => {
   }
 };
 
-
 // Logout User
 const userLogout = async (req, res) => {
   try{
@@ -155,6 +154,32 @@ const userLogout = async (req, res) => {
     })
   }
   
+}
+
+// Auth Protected Route
+const authProtectedRoute = async (req, res) => {
+  try {
+    const token = req.cookies?.token;
+
+    if(!token){
+      return res.status(401).json({
+        success: false,
+        message: "Not Authenticated",
+      })
+    }
+
+    const decoded = jwt.verify(token, process.env.JWT_SECRET);
+
+    return res.status(200).json({
+      success: true,
+      user: decoded,
+    });
+  } catch (error) {
+    return res.status(401).json({
+      success: false,
+      message: "Invalid or expired token",
+    })
+  }
 }
 
 // Display all users
@@ -185,4 +210,4 @@ const userLogout = async (req, res) => {
 //   }
 // };
 
-module.exports = { userRegister, userLogin, userLogout };
+module.exports = { userRegister, userLogin, userLogout, authProtectedRoute };

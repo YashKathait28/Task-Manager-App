@@ -1,5 +1,5 @@
 const express = require("express");
-const { userRegister, userLogin, userLogout  } = require("../controllers/authControllers");
+const { userRegister, userLogin, userLogout, authProtectedRoute  } = require("../controllers/authControllers");
 
 const router = express.Router();
 
@@ -9,6 +9,8 @@ router.post("/register", userRegister);
 router.post("/login", userLogin);
 // Logout API
 router.post("/logout", userLogout);
+// Auth Protected Route
+router.get("/check-auth", authProtectedRoute);
 // All-Users API
 // router.get("/users", allUsers);
 
