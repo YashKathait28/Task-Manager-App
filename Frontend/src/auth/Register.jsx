@@ -50,7 +50,7 @@ export default function Register() {
 
   return (
     <div className="min-h-screen w-full flex justify-center items-center bg-indigo-100">
-      <div className="bg-white border-none rounded-2xl shadow-lg p-5 w-full max-w-md h-auto">
+      <div className="bg-white border-none rounded-2xl shadow-lg p-5 w-full max-w-xs min-h-[430px]">
         <form onSubmit={handleForm}>
           <h1 className="text-center text-2xl text-indigo-500 transition-colors duration-200 hover:text-indigo-600 font-semibold mb-3">
             Register User
@@ -87,7 +87,7 @@ export default function Register() {
 
           <button
             type="submit"
-            className="mt-5 mb-2 w-full border px-2 py-2 text-lg font-semibold rounded-lg outline-none bg-indigo-600 text-white hover:bg-indigo-700 cursor-pointer transition-colors duration-200"
+            className="mt-5 mb-3 w-full border px-2 py-2 text-lg font-semibold rounded-lg outline-none bg-indigo-600 text-white hover:bg-indigo-700 cursor-pointer transition-colors duration-200"
           >
             Submit
           </button>

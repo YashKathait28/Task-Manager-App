@@ -74,56 +74,69 @@ const PendingTask = () => {
   useEffect(() => {
     getData();
   }, []);
-  return (
-    <>
-      <div className="flex items-center justify-between mb-2">
-        <h2 className="text-2xl font-semibold px-25 mt-6">Pending Tasks</h2>
 
-        <Search_and_Date
-          search={search}
-          date={date}
-          setSearch={setSearch}
-          setDate={setDate}
-        />
-      </div>
-      <div className="grid grid-cols-1 gap-8 max-w-6xl mx-auto p-7 m-2 sm:grid-cols-2 lg:grid-cols-3 ">
-        {filteredTask().length > 0 ? (
-          filteredTask().map((task) => (
-            <div
-              key={task._id}
-              className="text-center border rounded-lg bg-amber-50 shadow-sm p-2 flex flex-col sm:w-60 lg:w-80 md-w-70"
-            >
-              <div className="relative mb-2">
-                <h2 className="text-center text-lg mt-3 font-semibold text-gray-800 break-all pl-14 pr-17">
-                  {task.title}
-                </h2>
-              </div>
-              <p className="text-sm mb-6 text-gray-600 wrap-break-word">
-                {task.description}
-              </p>
-              <div className="flex justify-center mt-auto mb-3 gap-4 pt-3">
-                <button className="cursor-pointer rounded bg-blue-500 px-4 py-1 text-white hover:bg-blue-700">
-                  <Link to={`/update/${task._id}`}>Edit</Link>
-                </button>
-                <button
-                  onClick={() => {
-                    handleDelete(task._id);
-                  }}
-                  className="cursor-pointer rounded bg-red-500 px-4 py-1 text-white hover:bg-red-700"
-                >
-                  Delete
-                </button>
-              </div>
+  
+return (
+  <>
+    {/* Heading and Filters */}
+    <div className="flex w-full flex-col gap-4 px-3 pt-5 mb-2 md:flex-row md:items-center md:justify-between md:px-6">
+      <h2 className="text-2xl font-semibold ml-3 md:px-6">
+        Pending Tasks
+      </h2>
+
+      <Search_and_Date
+        search={search}
+        date={date}
+        setSearch={setSearch}
+        setDate={setDate}
+      />
+    </div>
+
+    {/* Pending Task Cards */}
+    <div className="mx-auto grid w-full max-w-6xl grid-cols-1 gap-5 p-3 sm:grid-cols-2 md:p-6 lg:grid-cols-3">
+      {filteredTask().length > 0 ? (
+        filteredTask().map((task) => (
+          <div
+            key={task._id}
+            className="flex w-full min-w-0 flex-col rounded-lg border bg-amber-50 p-3 text-center shadow-sm"
+          >
+            <div className="relative mb-2">
+              <h2 className="mt-3 break-words px-4 text-center text-lg font-semibold text-gray-800">
+                {task.title}
+              </h2>
             </div>
-          ))
-        ) : (
-          <div className="flex items-center justify-center font-medium text-lg w-full min-h-[20vh] ">
-            <p className="text-center mr-30 mb-15">No Pending Tasks Found</p>
+
+            <p className="mb-6 break-words text-sm text-gray-600">
+              {task.description}
+            </p>
+
+            <div className="mt-auto flex justify-center gap-4 pt-3 pb-2">
+              <button className="cursor-pointer rounded bg-blue-500 px-4 py-1 text-white hover:bg-blue-700">
+                <Link to={`/update/${task._id}`}>
+                  Edit
+                </Link>
+              </button>
+
+              <button
+                onClick={() => {
+                  handleDelete(task._id);
+                }}
+                className="cursor-pointer rounded bg-red-500 px-4 py-1 text-white hover:bg-red-700"
+              >
+                Delete
+              </button>
+            </div>
           </div>
-        )}
-      </div>
-    </>
-  );
+        ))
+      ) : (
+        <div className="col-span-full flex min-h-[20vh] w-full items-center justify-center text-center text-lg font-medium">
+          <p>No Pending Tasks Found</p>
+        </div>
+      )}
+    </div>
+  </>
+);
+
 };
 
 export default PendingTask;

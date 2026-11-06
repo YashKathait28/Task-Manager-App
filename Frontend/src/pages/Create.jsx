@@ -43,10 +43,10 @@ const Create = () => {
   };
 
   return (
-    <div className="mx-auto mt-15 max-w-lg px-4">
+    <div className="mx-auto mt-15 max-w-lg px-3 md:px-6 md:px-4 w-full overflow-x-hidden">
       <form
         onSubmit={handleSubmit}
-        className="rounded-xl border border-gray-200 bg-white p-5 shadow-lg"
+        className="rounded-xl border border-gray-200 bg-white py-10 px-5 md:p-5 shadow-lg"
       >
         <h2 className="mb-6 text-center text-2xl font-bold text-gray-800 ">
           Create Task

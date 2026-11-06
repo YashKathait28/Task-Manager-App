@@ -45,7 +45,7 @@ export default function Login() {
 
   return (
     <div className="min-h-screen w-full flex justify-center items-center bg-indigo-100">
-      <div className="bg-white border-none rounded-2xl shadow-lg p-5 w-full max-w-sm h-auto">
+      <div className="bg-white border-none rounded-2xl shadow-lg p-5 w-full max-w-xs min-h-[350px]">
         <form onSubmit={handleSumbit}>
           <h1 className="text-center text-2xl text-indigo-500 transition-colors duration-200 hover:text-indigo-600 font-semibold mb-3">
             Login User
@@ -63,7 +63,7 @@ export default function Login() {
             <label className="text-md font-semibold">Password</label>
             <input
               type="password"
-              placeholder="Set your password"
+              placeholder="Enter your password"
               className="w-full rounded-lg px-2 py-2 border outline-none focus:border-indigo-200  focus:ring-1 focus:ring-indigo-400"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
@@ -73,7 +73,7 @@ export default function Login() {
 
           <button
             type="submit"
-            className="mt-5 mb-2 w-full border px-2 py-2 text-lg font-semibold rounded-lg outline-none bg-indigo-600 text-white hover:bg-indigo-700 cursor-pointer transition-colors duration-200"
+            className="mt-5 mb-3 w-full border px-2 py-2 text-lg font-semibold rounded-lg outline-none bg-indigo-600 text-white hover:bg-indigo-700 cursor-pointer transition-colors duration-200"
           >
             Login
           </button>
