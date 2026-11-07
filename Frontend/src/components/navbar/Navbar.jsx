@@ -45,8 +45,6 @@ const Navbar = () => {
         );
 
         const data = await response.json();
-        console.log("API Response:", data);
-        console.log("Username:", data.user?.username);
 
         if (response.ok) {
           setUsername(data.user.username);
