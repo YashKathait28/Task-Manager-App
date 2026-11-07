@@ -1,10 +1,10 @@
-
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
 const Navbar = () => {
   const [showStatus, setShowStatus] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
+  const [username, setUsername] = useState("");
   const navigate = useNavigate();
 
   const handleLogout = async () => {
@@ -14,7 +14,7 @@ const Navbar = () => {
         {
           method: "POST",
           credentials: "include",
-        }
+        },
       );
 
       const result = await response.json();
@@ -34,9 +34,33 @@ const Navbar = () => {
     }
   };
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const response = await fetch(
+          "https://task-manager-app-3hrv.onrender.com/api/auth/check-auth",
+          {
+            credentials: "include",
+          },
+        );
+
+        const data = await response.json();
+        console.log("API Response:", data);
+        console.log("Username:", data.user?.username);
+
+        if (response.ok) {
+          setUsername(data.user.username);
+        }
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+    fetchUser();
+  }, []);
+
   return (
     <nav className="relative top-0 z-50 flex w-full items-center justify-between border-b border-gray-200 bg-blue-950 px-3 py-3 shadow-sm md:px-6 md:py-4">
-
       {/* Logo */}
       <div className="flex min-w-0 items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text font-semibold font-sans tracking-tight text-transparent">
         <img
@@ -44,14 +68,11 @@ const Navbar = () => {
           className="h-8 w-8 shrink-0 object-contain md:h-10 md:w-10"
           alt="Logo"
         />
-        <h1 className="text-lg md:text-2xl">
-          My Task Manager
-        </h1>
+        <h1 className="text-lg md:text-2xl">My Task Manager</h1>
       </div>
 
       {/* Desktop Navigation */}
       <div className="ml-auto hidden items-center gap-6 md:flex">
-
         <Link
           to="/show"
           className="text-sm font-medium text-amber-50 transition hover:text-blue-300 hover:underline"
@@ -102,14 +123,14 @@ const Navbar = () => {
         {/* Logout */}
         <button
           onClick={handleLogout}
-          className="mr-2 cursor-pointer rounded-xl border bg-purple-700 px-3 py-2 font-medium text-white hover:bg-purple-800"
+          className="cursor-pointer rounded-xl border bg-purple-700 px-3 py-2 font-medium text-white hover:bg-purple-800"
         >
           Logout
         </button>
 
         {/* Profile */}
-        <div className="flex size-10 items-center justify-center rounded-full border-4 bg-emerald-500 text-xl">
-          YK
+        <div className="flex items-center justify-center rounded-2xl px-3 py-1 border-4 bg-emerald-500 text-lg hover:bg-emerald-600">
+          {username || "User"}
         </div>
       </div>
 
@@ -129,7 +150,6 @@ const Navbar = () => {
       {/* Mobile Menu */}
       {menuOpen && (
         <div className="absolute left-0 top-full z-50 flex w-full flex-col gap-4 border-t border-gray-700 bg-blue-950 p-5 shadow-lg md:hidden">
-
           <Link
             to="/show"
             onClick={() => setMenuOpen(false)}
@@ -182,9 +202,8 @@ const Navbar = () => {
 
           {/* Mobile Profile and Logout */}
           <div className="flex items-center justify-between border-t border-gray-700 pt-4">
-
-            <div className="flex size-9 items-center justify-center rounded-full border-2 bg-emerald-500 text-lg">
-              YK
+            <div className="flex items-center justify-center rounded-xl px-3 py-1  border-2 bg-emerald-500 hover:bg-emerald-600 text-lg">
+              {username || "User"}
             </div>
 
             <button
@@ -193,7 +212,6 @@ const Navbar = () => {
             >
               Logout
             </button>
-
           </div>
         </div>
       )}

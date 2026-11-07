@@ -171,9 +171,21 @@ const authProtectedRoute = async (req, res) => {
 
     const decoded = jwt.verify(token, process.env.JWT_SECRET);
 
+    const checkUser = await user.findById(decoded.userId).select("username email");
+
+    if (!checkUser){
+      return res.status(404).json({
+        success: false,
+        message: "User not found",
+      })
+    }
+
     return res.status(200).json({
       success: true,
-      user: decoded,
+      user: {
+        username: checkUser.username,
+        email: checkUser.email,
+      },
     });
   } catch (error) {
     return res.status(401).json({
